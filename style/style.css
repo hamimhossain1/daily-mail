@@ -1,0 +1,27 @@
+/*----- general css style start --- */
+body{
+    font-family: 'Roboto', sans-serif;
+}
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+/*----- general css style emd --- */
+
+
+/*----- navbar css style start --- */
+.title{
+    font-size: 30px;
+}
+
+/*----- footer css style start --- */
+/* .footer{
+    background-color: black;
+    color: white;
+    height: 150px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} */
