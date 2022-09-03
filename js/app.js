@@ -33,6 +33,7 @@ const loadNewsInCategory = (id) => {
 
 // ---display news in category---//
 const displayNewsInCategory = (newsData) => {
+    // console.log(newsData[0].category_id)
     const showNewsContainer = document.getElementById('show-news-container');
     showNewsContainer.textContent = '';
     newsData.forEach(data => {
@@ -95,17 +96,45 @@ const loadModalData = (news_id) =>{
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`
     fetch(url)
     .then(res => res.json())
-    .then(data => displayModalData(data.data[0]))
+    .then(data => displayModalData(data.data))
 
 }
 
 const displayModalData = (data) =>{
+    console.log(data.image_url)
+    
+    const modalContent = document.getElementById('modal-dialog') 
+    modalContent.textContent = '';
+
+    data.forEach(data =>{
     console.log(data)
+    const {total_view, author, rating} = data;
+    const {name, img} = author;
+    const {number, badge} = rating;
+    
+    const div = document.createElement('div');
+    div.classList.add('modal-content');
+    div.innerHTML = `
+
+                    <div class="modal-body">
+                    <div class="text-center">
+                    <img src="${img}" class=" rounded-pill " alt="..." style="width:300px">
+
+                    <h5 class="mt-2">Name: ${name ? name : 'No data available'}</h5>
+                    <p class="mt-2">View: ${total_view ? total_view : 'No data available'}</p>
+
+                    <p>Rating: ${number} </p>
+                    <p>Badge: ${badge} </p>
+                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                
+        `;
+        modalContent.appendChild(div);
+    });
 }
-
-
-
-
 
 // displayNewsInCategory()
 
