@@ -14,9 +14,9 @@ const displayAllCatagories = async (category_id) => {
         const { category_id, category_name } = category;
         // console.log(category_id)
         // console.log(category.category_name)
-        const div = document.createElement('div');
+        const div = document.createElement('div', 'col-sm-12');
         div.innerHTML = `
-        <button type="button" onclick="loadNewsInCategory('${category_id}')" class="btn">${category_name}</button>
+        <button type="button" onclick="loadNewsInCategory('${category_id}')" class="btn " style="font-size:20px">${category_name}</button>
         `
         newsCatagories.appendChild(div)
     });
@@ -24,6 +24,10 @@ const displayAllCatagories = async (category_id) => {
 
 // ---load news in a category ---//
 const loadNewsInCategory = (id) => {
+    // --below spinner --//
+    const spinnerShow = document.getElementById('spinner');
+    spinnerShow.classList.remove('d-none');
+
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     fetch(url)
         .then(res => res.json())
@@ -34,33 +38,42 @@ const loadNewsInCategory = (id) => {
 // ---display news in category---//
 const displayNewsInCategory = (newsData) => {
     // console.log(newsData[0].category_id)
+
+    //---below spinner---//
+    const spinnerShow = document.getElementById('spinner');
+    spinnerShow.classList.add('d-none');
+    
     const showNewsContainer = document.getElementById('show-news-container');
     showNewsContainer.textContent = '';
+
+    
+
     newsData.forEach(data => {
         const { thumbnail_url, title, details, author, _id, rating } = data;
         const { number } = rating;
         const { img, name, published_date } = author;
         // console.log(_id);
         const div = document.createElement('div');
-        div.classList.add('card')
+        div.classList.add('card', 'mb-5', 'shadow-lg', 'rounded')
+        div.classList.add()
         div.innerHTML = `
-                <div class="row g-0">
-                    <div class="col-md-4 mb-3 ">
-                        <img src="${thumbnail_url}" class=" rounded-start w-50" alt="...">
+                <div class="row ">
+                    <div class="col-md-4 text-center text-sm-center ">
+                        <img src="${thumbnail_url}" class=" rounded-start w-full " alt="...">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">${title}</h5>
-                            <p class="card-text">${details.length > 300 ? details.slice(0, 300) + '...' : details}</p>
+                            <p class="card-text">${details.length > 280 ? details.slice(0, 280) + '...' : details}</p>
                             
-                            <div class="d-flex justify-content-between mt-5">    
+                            <div class="d-flex justify-content-between mt-5 flex-sm-column flex-column flex-md-row" style="margin-top: 100px">    
                                 <div class="d-flex">
                                     <div>
                                         <img src="${img}" class=" rounded-pill " alt="..." style="width:50px">
                                     </div>
                                     <div class="ms-2">
                                         <p >${name ? name : 'Not available'}</p>
-                                        <p  class="text-muted">${published_date}</p>
+                                        <p  class="text-muted">${new Date(published_date).toDateString()}</p>
                                     </div>
                                 </div>
 
@@ -88,6 +101,7 @@ const displayNewsInCategory = (newsData) => {
                 </div>
         `;
         showNewsContainer.appendChild(div);
+        
     })
 }
 
@@ -141,4 +155,4 @@ const displayModalData = (data) =>{
 
 
 
-displayAllCatagories();
+displayAllCatagories('01');

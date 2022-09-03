@@ -12,11 +12,11 @@ body{
 
 /*----- navbar css style start --- */
 .title{
-    font-size: 30px;
+    font-size: 25px;
 }
 
 /*----- footer css style start --- */
-/* .footer{
+.footer{
     background-color: black;
     color: white;
     height: 150px;
@@ -24,4 +24,8 @@ body{
     display: flex;
     align-items: center;
     justify-content: center;
-} */
+}
+
+.sort-btn{
+    background-color: rgb(231, 225, 225);
+}
