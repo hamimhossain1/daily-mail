@@ -58,15 +58,15 @@ const displayNewsInCategory = (newsData) => {
         div.classList.add()
         div.innerHTML = `
                 <div class="row ">
-                    <div class="col-md-4 text-center text-sm-center ">
+                    <div class="col-lg-3 text-center text-md-center text-lg-start ">
                         <img src="${thumbnail_url}" class=" rounded-start w-full " alt="...">
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-lg-9">
                         <div class="card-body">
                             <h5 class="card-title">${title}</h5>
-                            <p class="card-text">${details.length > 280 ? details.slice(0, 280) + '...' : details}</p>
+                            <p class="card-text">${details.length > 400 ? details.slice(0, 400) + '...' : details}</p>
                             
-                            <div class="d-flex justify-content-between mt-5 flex-sm-column flex-column flex-md-row" style="margin-top: 100px">    
+                            <div class="d-flex justify-content-between mt-5  flex-column flex-md-column flex-lg-row" style="margin-top: 100px">    
                                 <div class="d-flex">
                                     <div>
                                         <img src="${img}" class=" rounded-pill " alt="..." style="width:50px">
