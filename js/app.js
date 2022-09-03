@@ -60,7 +60,7 @@ const displayNewsInCategory = (newsData) => {
     
 
     newsData.forEach(data => {
-        // console.log(data.length)
+        console.log(data)
         const { thumbnail_url, title, details, author, _id, rating } = data;
         const { number } = rating;
         const { img, name, published_date } = author;
@@ -162,9 +162,7 @@ const displayModalData = (data) =>{
     });
 }
 
-// displayNewsInCategory()
 
+loadNewsInCategory('01')
 
-
-
-displayAllCatagories('01');
+displayAllCatagories();
