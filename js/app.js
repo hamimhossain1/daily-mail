@@ -56,7 +56,7 @@ const displayNewsInCategory = (newsData) => {
        
         const div = document.createElement('div');
         div.innerHTML = `
-        <h1 class="text-center"> ${total_view ? total_view : 'Not found'}</h1>
+        <p class="text-center"> ${total_view ? total_view : 'Not found'}</p>
         `;
         sortDefault.appendChild(div);
         console.log(data)

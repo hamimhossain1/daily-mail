@@ -7,8 +7,6 @@ body{
     margin: 0;
     padding: 0;
 }
-/*----- general css style emd --- */
-
 
 /*----- navbar css style start --- */
 .title{
@@ -26,6 +24,7 @@ body{
     justify-content: center;
 }
 
+/*---- sort default ---- */
 .sort-btn{
     background-color: rgb(231, 225, 225);
 }
