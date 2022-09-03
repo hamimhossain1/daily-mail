@@ -37,7 +37,7 @@ const loadNewsInCategory = (id) => {
 
 // ---display news in category---//
 const displayNewsInCategory = (newsData) => {
-    // console.log(newsData[0].category_id)
+    // console.log(newsData)
 
     //---below spinner---//
     const spinnerShow = document.getElementById('spinner');
@@ -46,9 +46,21 @@ const displayNewsInCategory = (newsData) => {
     const showNewsContainer = document.getElementById('show-news-container');
     showNewsContainer.textContent = '';
 
+
+     //------ number of news Found------//
+     const newsFound = document.getElementById('total-found');
+     newsFound.textContent = '';
+     if(newsData.length > 0){
+         newsFound.innerText = `${newsData.length} items found `
+     }
+     else{  
+        newsFound.innerText = 'No news found'
+     }
+
     
 
     newsData.forEach(data => {
+        // console.log(data.length)
         const { thumbnail_url, title, details, author, _id, rating } = data;
         const { number } = rating;
         const { img, name, published_date } = author;
