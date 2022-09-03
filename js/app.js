@@ -36,10 +36,10 @@ const displayNewsInCategory = (newsData) => {
     const showNewsContainer = document.getElementById('show-news-container');
     showNewsContainer.textContent = '';
     newsData.forEach(data => {
-        const { thumbnail_url, title, details, author, total_view, rating } = data;
+        const { thumbnail_url, title, details, author, _id, rating } = data;
         const { number } = rating;
         const { img, name, published_date } = author;
-        console.log(data);
+        // console.log(_id);
         const div = document.createElement('div');
         div.classList.add('card')
         div.innerHTML = `
@@ -50,7 +50,7 @@ const displayNewsInCategory = (newsData) => {
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">${title}</h5>
-                            <p class="card-text">${details.length > 100 ? details.slice(0, 200) + '...' : details}</p>
+                            <p class="card-text">${details.length > 300 ? details.slice(0, 300) + '...' : details}</p>
                             
                             <div class="d-flex justify-content-between mt-5">    
                                 <div class="d-flex">
@@ -58,13 +58,14 @@ const displayNewsInCategory = (newsData) => {
                                         <img src="${img}" class=" rounded-pill " alt="..." style="width:50px">
                                     </div>
                                     <div class="ms-2">
-                                        <p >${name}</p>
+                                        <p >${name ? name : 'Not available'}</p>
                                         <p  class="text-muted">${published_date}</p>
                                     </div>
                                 </div>
 
-                                <div>
-                                    <h3><i class="fa-regular fa-eye"> </i>${number}</h3>
+                                <div class="d-flex">
+                                
+                                <h5 class="ms-2"><i class="fa-regular fa-eye"> </i>${number}</h5>
                                 </div>
 
                                 <div>
@@ -76,7 +77,7 @@ const displayNewsInCategory = (newsData) => {
                                 </div>
 
                                 <div>
-                                    <button type="button" class="btn btn-secondary">View More <i class="fa-solid fa-arrow-right"></i></button>
+                                    <button onclick="loadModalData('${_id}')" type="button" class="btn btn-secondary">View More <i class="fa-solid fa-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -87,21 +88,22 @@ const displayNewsInCategory = (newsData) => {
     })
 }
 
+// ---load modal data--- //
+const loadModalData = (news_id) =>{
+    const url = `https://openapi.programming-hero.com/api/news/${news_id}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => console.log(data))
+
+}
+
+
+
+
 
 // displayNewsInCategory()
 
 
-// const loadNewsInCategory = async (category_id) => { 
-//     const res = await fetch(`https://openapi.programming-hero.com/api/news/category/${category_id}`);
-//     const data = await res.json();
-//     return data;
-// }
 
-// const displayNewsInCategory = async () => {
-//     const data = await loadNewsInCategory();
-//     console.log(data);
-// }
-
-// displayNewsInCategory();
 
 displayAllCatagories();
