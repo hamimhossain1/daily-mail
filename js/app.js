@@ -77,7 +77,9 @@ const displayNewsInCategory = (newsData) => {
                                 </div>
 
                                 <div>
-                                    <button onclick="loadModalData('${_id}')" type="button" class="btn btn-secondary">View More <i class="fa-solid fa-arrow-right"></i></button>
+                                    <button onclick="loadModalData('${_id}')" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    View More
+                                    <i class="fa-solid fa-arrow-right"></i></button>
                                 </div>
                             </div>
                         </div>
@@ -93,8 +95,12 @@ const loadModalData = (news_id) =>{
     const url = `https://openapi.programming-hero.com/api/news/${news_id}`
     fetch(url)
     .then(res => res.json())
-    .then(data => console.log(data))
+    .then(data => displayModalData(data.data[0]))
 
+}
+
+const displayModalData = (data) =>{
+    console.log(data)
 }
 
 
