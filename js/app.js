@@ -8,16 +8,13 @@ const loadAllCatagories = async () => {
 // ---display all catagories ---//
 const displayAllCatagories = async (category_id) => {
     const data = await loadAllCatagories(category_id);
-    // console.log(data.data.news_category);
     const newsCatagories = document.getElementById('news-category');
     data.data.news_category.forEach((category) => {
         const { category_id, category_name } = category;
-        // console.log(category_id)
-        // console.log(category.category_name)
         const div = document.createElement('div', 'col-sm-12');
         div.innerHTML = `
         <button type="button" onclick="loadNewsInCategory('${category_id}')" class="btn " style="font-size:20px">${category_name}</button>
-        `
+        `;
         newsCatagories.appendChild(div)
     });
 }
@@ -27,25 +24,19 @@ const loadNewsInCategory = (id) => {
     // --below spinner --//
     const spinnerShow = document.getElementById('spinner');
     spinnerShow.classList.remove('d-none');
-
     const url = `https://openapi.programming-hero.com/api/news/category/${id}`
     fetch(url)
         .then(res => res.json())
         .then(data => displayNewsInCategory(data.data))
-    // console.log(id)
 }
 
 // ---display news in category---//
 const displayNewsInCategory = (newsData) => {
-    // console.log(newsData)
-
     //---below spinner---//
     const spinnerShow = document.getElementById('spinner');
     spinnerShow.classList.add('d-none');
-    
     const showNewsContainer = document.getElementById('show-news-container');
     showNewsContainer.textContent = '';
-
 
      //------ number of news Found------//
      const newsFound = document.getElementById('total-found');
@@ -57,7 +48,19 @@ const displayNewsInCategory = (newsData) => {
         newsFound.innerText = 'No news found'
      }
 
-    
+    //---  default sort ---//
+    const sortDefault = document.getElementById('sort-default');
+    sortDefault.textContent = '';
+    newsData.forEach(data=>{
+        const {total_view} = data;
+       
+        const div = document.createElement('div');
+        div.innerHTML = `
+        <h1 class="text-center"> ${total_view ? total_view : 'Not found'}</h1>
+        `;
+        sortDefault.appendChild(div);
+        console.log(data)
+    });
 
     newsData.forEach(data => {
         console.log(data)
@@ -113,8 +116,7 @@ const displayNewsInCategory = (newsData) => {
                 </div>
         `;
         showNewsContainer.appendChild(div);
-        
-    })
+    });
 }
 
 // ---load modal data--- //
@@ -123,46 +125,39 @@ const loadModalData = (news_id) =>{
     fetch(url)
     .then(res => res.json())
     .then(data => displayModalData(data.data))
-
 }
 
 const displayModalData = (data) =>{
-    console.log(data.image_url)
-    
     const modalContent = document.getElementById('modal-dialog') 
     modalContent.textContent = '';
 
     data.forEach(data =>{
-    console.log(data)
     const {total_view, author, rating} = data;
     const {name, img} = author;
     const {number, badge} = rating;
-    
+
     const div = document.createElement('div');
     div.classList.add('modal-content');
     div.innerHTML = `
-
                     <div class="modal-body">
-                    <div class="text-center">
-                    <img src="${img}" class=" rounded-pill " alt="..." style="width:300px">
+                        <div class="text-center">
+                            <img src="${img}" class=" rounded-pill " alt="..." style="width:300px">
 
-                    <h5 class="mt-2">Name: ${name ? name : 'No data available'}</h5>
-                    <p class="mt-2">View: ${total_view ? total_view : 'No data available'}</p>
+                            <h5 class="mt-2">Name: ${name ? name : 'No data available'}</h5>
+                            <p class="mt-2">View: ${total_view ? total_view : 'No data available'}</p>
 
-                    <p>Rating: ${number} </p>
-                    <p>Badge: ${badge} </p>
-                </div>
+                            <p>Rating: ${number} </p>
+                            <p>Badge: ${badge} </p>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
-                
         `;
         modalContent.appendChild(div);
     });
 }
 
-
-loadNewsInCategory('01')
+loadNewsInCategory('01');
 
 displayAllCatagories();
